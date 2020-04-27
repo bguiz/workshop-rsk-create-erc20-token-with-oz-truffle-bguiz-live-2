@@ -1,0 +1,27 @@
+{
+  "name": "workshop-rsk-create-erc20-token-with-oz-truffle-bguiz-live-2",
+  "version": "0.0.0",
+  "description": "RSK workshop - Walkthrough - Create an ERC20 token with OpenZeppelin and Truffle",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bguiz/workshop-rsk-create-erc20-token-with-oz-truffle-bguiz-live-2.git"
+  },
+  "keywords": [
+    "rsk",
+    "workshop",
+    "truffle"
+  ],
+  "author": "bguiz",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/bguiz/workshop-rsk-create-erc20-token-with-oz-truffle-bguiz-live-2/issues"
+  },
+  "homepage": "https://github.com/bguiz/workshop-rsk-create-erc20-token-with-oz-truffle-bguiz-live-2#readme"
+}
