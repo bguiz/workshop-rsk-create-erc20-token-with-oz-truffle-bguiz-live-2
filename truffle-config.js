@@ -18,11 +18,23 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-// const infuraKey = "fj4jll3k.....";
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+const fs = require('fs');
+
+const mnemonic = fs.readFileSync(".secret").toString().trim();
+if (!mnemonic || mnemonic.split(' ').length !== 12) {
+  throw new Error('unable to retrieve mnemonic from .mnemonic');
+}
+
+const gasPriceRaw = fs.readFileSync(".gas-price.json").toString().trim();
+const gasPrice = parseInt(JSON.parse(gasPriceRaw).result, 16);
+if (!gasPrice || isNaN(gasPrice)) {
+  throw new Error('unable to retrieve network gas price from .gas-price.json');
+}
+
+process.stdout.write(`gasPrice: ${gasPrice}\nmnemonic: ${mnemonic}\n`);
+// NOTE only do the above in demo code.
+// This is not, by far, secure enough for a real use scenario.
 
 module.exports = {
   /**
@@ -36,6 +48,15 @@ module.exports = {
    */
 
   networks: {
+    testnet: {
+      provider: () => new HDWalletProvider(
+        mnemonic,
+        'https://public-node.testnet.rsk.co/1.3.0/',
+      ),
+      network_id: 31,
+      gasPrice,
+      networkCheckTimeout: 1e9,
+    },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
@@ -85,6 +106,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
+      version: '0.5.2',
       // version: "0.5.1",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
